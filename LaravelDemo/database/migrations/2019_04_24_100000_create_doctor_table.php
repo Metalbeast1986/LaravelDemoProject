@@ -13,10 +13,13 @@ class CreateDoctorTable extends Migration
      */
     public function up()
     {
-       Schema::create('doctor', function (Blueprint $table) {
+       Schema::create('doctors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('occupation');
+            $table->string('occupation');;
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+
         });
     }
 
@@ -27,6 +30,6 @@ class CreateDoctorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctor');
+        Schema::dropIfExists('doctors');
     }
 }
