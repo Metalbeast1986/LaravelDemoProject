@@ -32,10 +32,13 @@
         <tr>
             <td>{{$visit->id}}</td>
             <td>{{$visit->visit_date}}</td>
-            <td>{{$visit->patient_id}}</td>
-            <td>{{$visit->patient_fullname}}</td>
+            <td>{{$visit->patients_id}}</td>
+           <!--  <td>{{$visit->patient_fullname}}</td> -->
+
+            <td>{{ $visit->Patients->name }}</td>
+
             <td>{{$visit->doctor_id}}</td>
-            <td>{{$visit->doctor_fullname}}</td>
+            <td>{{ $visit->Doctor->name }}</td>
             <td>
                 <a href="{{ route('visit.edit',$visit->id)}}" class="btn btn-primary">Edit</a>
             </td>

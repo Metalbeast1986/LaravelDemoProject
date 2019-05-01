@@ -17,8 +17,9 @@ class VisitController extends Controller
     public function index()
     {
         $visitslist = Visits::all();
-        return view('Visits.index', compact('visitslist'));   
-
+        $patientlist = Patients::with('Visits')->get();
+        $doctorlist = Doctor::with('Visits')->get();
+        return view('Visits.index', compact('visitslist')); 
     }
 
     /**
@@ -28,8 +29,10 @@ class VisitController extends Controller
      */
     public function create()
     {
-        $patientlist = Patients::all();
-        $doctorlist = Doctor::all();
+
+        $patientlist = Patients::with('Visits')->get();
+        $doctorlist = Doctor::with('Visits')->get();
+     //   $doctorlist = Doctor::all();
         return view('Visits.create', compact('patientlist'), compact('doctorlist'));
     }
 
@@ -43,25 +46,17 @@ class VisitController extends Controller
     {
        $request->validate([
             'visit_date'=>'required',
-            'patient_id'=>'required',
+            'patients_id'=>'required',
             'doctor_id'=>'required'
 
         ]);
 
-        $patient_id = $_POST['patient_id'];
-        $patients = Patients::select('name')->where('id',$patient_id)->first();
-
-        $doctor_id = $_POST['doctor_id'];
-        $doctors = Doctor::select('name')->where('id',$doctor_id)->first();
 
         $visit = new Visits([
             'visit_date' => $request->get('visit_date'),
-            'patient_id' => $request->get('patient_id'),
-            'patient_fullname' =>$patients->name,
-            'doctor_id' => $request->get('doctor_id'),
-            'doctor_fullname' => $doctors->name
+            'patients_id' => $request->get('patients_id'),
+            'doctor_id' => $request->get('doctor_id')
         ]);
-
 
         $visit->save();
         return redirect('visit')->with('success', 'Visit saved!');
@@ -76,7 +71,11 @@ class VisitController extends Controller
 
     public function show($id)
     {
-       //
+        /*
+        $patientlist = Patients::with('Visits')->get();
+        $doctorlist = Doctor::with('Visits')->get();*/
+        $visit = Patients::find($id);
+        return View::make('visits.show')->with('name', $visit);
     }
 
     /**
@@ -105,22 +104,14 @@ class VisitController extends Controller
     {
           $request->validate([
             'visit_date'=>'required',
-            'patient_id'=>'required',
+            'patients_id'=>'required',
             'doctor_id'=>'required'
         ]);
 
-        $patient_id = $_POST['patient_id'];
-        $patients = Patients::select('name')->where('id',$patient_id)->first();
-
-        $doctor_id = $_POST['doctor_id'];
-        $doctors = Doctor::select('name')->where('id',$doctor_id)->first();
-
         $visit = Visits::find($id);
         $visit->visit_date =  $request->get('visit_date');
-        $visit->patient_id = $request->get('patient_id');
-        $visit->patient_fullname = $patients->name;
+        $visit->patients_id = $request->get('patients_id');
         $visit->doctor_id = $request->get('doctor_id');
-        $visit->doctor_fullname = $doctors->name;
         $visit->save();
 
         return redirect('visit')->with('success', 'Visit updated!');

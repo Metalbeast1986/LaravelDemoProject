@@ -10,4 +10,8 @@ class Patients extends Model
         'name',
         'dateofbirth'       
     ];
+
+    public function Visits(){
+        return $this->hasOne('App\Visits');
+    }
 }

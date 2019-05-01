@@ -21,7 +21,6 @@ class CreatePatientsTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
 
 
-
         });
     }
 

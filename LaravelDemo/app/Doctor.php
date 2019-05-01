@@ -10,4 +10,8 @@ class Doctor extends Model
         'name',
         'occupation'       
     ];
+
+    public function Visits(){
+        return $this->hasOne('App\Visits');
+    }
 }

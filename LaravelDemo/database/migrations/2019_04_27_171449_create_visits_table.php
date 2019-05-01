@@ -16,13 +16,10 @@ class CreateVisitsTable extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('visit_date');
-            $table->integer('patient_id');
-            $table->string('patient_fullname');
-            $table->integer('doctor_id');
-            $table->string('doctor_fullname');
+            $table->integer('patients_id');
+            $table->integer('doctor_id'); 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-
         });
     }
 

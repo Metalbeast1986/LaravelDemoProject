@@ -23,7 +23,7 @@
 
           <div class="form-group">
               <label for="patient_id">Patient:</label>
-              <select class="form-control" name="patient_id">
+              <select class="form-control" name="patients_id">
                 <option value=""><i>...please select a patient...</i></option>
                @foreach($patientlist as $patient)
                 <option value="{{$patient->id}}">{{$patient->name}} {{$patient->dateofbirth}}</option>

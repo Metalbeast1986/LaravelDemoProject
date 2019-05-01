@@ -23,9 +23,10 @@
           </div>
 
             <div class="form-group">
-              <label for="patient_id">Patient:</label>
-              <select class="form-control" name="patient_id">
-                <option value="{{$visit->patient_id}}">{{$visit->patient_fullname}}</option>
+              <label for="patients_id">Patient:</label>
+              <select class="form-control" name="patients_id">
+                <option value="{{$visit->patients_id}}">{{ $visit->Patients->name }}
+                </option>
                 <option value=""><i>...please select a patient...</i></option>
                @foreach($patientlist as $patient)
                 <option value="{{$patient->id}}">{{$patient->name}} {{$patient->dateofbirth}}</option>
@@ -36,7 +37,7 @@
             <div class="form-group">
               <label for="doctor_id">Doctor:</label>
               <select class="form-control" name="doctor_id">
-                <option value="{{$visit->doctor_id}}">{{$visit->doctor_fullname}}</option>
+                <option value="{{$visit->doctor_id}}">{{ $visit->Doctor->name }}</option>
                 <option value=""><i>...please select a doctor...</i></option>
                @foreach($doctorlist as $doctor)
                 <option value="{{$doctor->id}}">{{$doctor->name}} {{$doctor->occupation}}</option>
